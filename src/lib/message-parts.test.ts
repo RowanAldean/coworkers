@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import type { UIMessage } from "ai"
-import { toBlocks } from "./message-parts"
+import { describeCall, stepKind, toBlocks } from "./message-parts"
 
 function reply(...parts: unknown[]): UIMessage {
   return { id: "m", role: "assistant", parts: parts as UIMessage["parts"] }
@@ -89,5 +89,21 @@ describe("toBlocks for cards", () => {
     expect(done).toEqual([
       { kind: "event", key: "m:0", label: "Saved GITHUB_TOKEN" },
     ])
+  })
+})
+
+describe("web search steps", () => {
+  it("describes source discovery as a search step", () => {
+    const call = {
+      id: "search-1",
+      name: "web_search",
+      input: { objective: "Find Cloudflare product releases" },
+      output: { results: [] },
+      state: "done" as const,
+    }
+    expect(stepKind(call)).toBe("search")
+    expect(describeCall(call)).toBe(
+      "Searched the web: Find Cloudflare product releases"
+    )
   })
 })
