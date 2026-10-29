@@ -3324,6 +3324,7 @@ export class BotAgent extends Think<Env, BotState> {
           input.url ??
           input.path ??
           input.instructions ??
+          input.objective ??
           input.to ??
           input.name ??
           input.code ??
