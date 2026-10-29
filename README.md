@@ -106,15 +106,15 @@ sequenceDiagram
 
 Each bot has one setting per action type:
 
-| Action type       | Default   |
-| ----------------- | --------- |
-| Edit files        | allow     |
-| Run commands      | allow     |
-| Read the web      | allow     |
-| Drive the browser | allow     |
-| Use connected apps| ask first |
-| Message other bots| allow     |
-| Schedule routines | allow     |
+| Action type        | Default   |
+| ------------------ | --------- |
+| Edit files         | allow     |
+| Run commands       | allow     |
+| Read the web       | allow     |
+| Drive the browser  | allow     |
+| Use connected apps | ask first |
+| Message other bots | allow     |
+| Schedule routines  | allow     |
 
 Nobody is around to approve a background turn. So by default it can only use
 app tools that are read-only.
@@ -169,16 +169,16 @@ flowchart LR
 
 ## Stack
 
-| Layer      | What we use                                                   |
-| ---------- | ------------------------------------------------------------- |
-| Runtime    | Cloudflare Workers, Durable Objects (SQLite)                  |
-| Agents     | `agents` SDK, `@cloudflare/think`, `@cloudflare/computer`     |
-| Models     | Workers AI, or any provider through AI Gateway                |
-| Browser    | Browser Run: Chromium, Live View, Kitesurf                    |
-| Sandboxing | Dynamic Workers (shell, scripts, bot-built app servers)       |
-| Inbound    | Email Routing, webhooks, Web Push                             |
-| Frontend   | TanStack Start, React 19, Tailwind v4, Kumo, Hugeicons        |
-| Tooling    | `cf` CLI, Vite, Vitest, pnpm                                  |
+| Layer      | What we use                                               |
+| ---------- | --------------------------------------------------------- |
+| Runtime    | Cloudflare Workers, Durable Objects (SQLite)              |
+| Agents     | `agents` SDK, `@cloudflare/think`, `@cloudflare/computer` |
+| Models     | Workers AI, or any provider through AI Gateway            |
+| Browser    | Browser Run: Chromium, Live View, Kitesurf                |
+| Sandboxing | Dynamic Workers (shell, scripts, bot-built app servers)   |
+| Inbound    | Email Routing, webhooks, Web Push                         |
+| Frontend   | TanStack Start, React 19, Tailwind v4, Kumo, Hugeicons    |
+| Tooling    | `cf` CLI, Vite, Vitest, pnpm                              |
 
 ## Run it locally
 
@@ -401,20 +401,20 @@ Set in `cloudflare.config.ts`. Everything has a working default.
 `coworkers.deploy.json`, if present, overrides the name, `MODEL`,
 `AI_GATEWAY_ID` and the two `ACCESS_*` values.
 
-| Setting                  | What it does                                                          |
-| ------------------------ | --------------------------------------------------------------------- |
-| `MODEL`                  | Default chat model. `@cf/...` = Workers AI, `provider/model` = catalog |
-| `BACKGROUND_MODEL`       | Model for routines, check-ins and email. Empty = the chat model        |
-| `FALLBACK_MODEL`         | Workers AI model a turn retries on when a third-party model fails      |
-| `AI_GATEWAY_ID`          | Gateway for every model call. Empty = `default` (created on first use) |
-| `ACCESS_TEAM_DOMAIN`     | With `ACCESS_AUD`, require a valid Access token on every request       |
-| `ACCESS_AUD`             | The Access application's AUD tag                                       |
-| `QUICK_ACTION_ENGINE`    | `kitesurf` (cheaper) or `chromium` for quick page reads                |
-| `EMAIL_DOMAIN`           | Turns on inbound email. Each bot gets `<user>.<bot>@<domain>`         |
-| `BROWSER_RUN_ACCOUNT_ID` | With `BROWSER_RUN_API_TOKEN` (secret), turns on the crawl tool        |
+| Setting                  | What it does                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| `MODEL`                  | Default chat model. `@cf/...` = Workers AI, `provider/model` = catalog               |
+| `BACKGROUND_MODEL`       | Model for routines, check-ins and email. Empty = the chat model                      |
+| `FALLBACK_MODEL`         | Workers AI model a turn retries on when a third-party model fails                    |
+| `AI_GATEWAY_ID`          | Gateway for every model call. Empty = `default` (created on first use)               |
+| `ACCESS_TEAM_DOMAIN`     | With `ACCESS_AUD`, require a valid Access token on every request                     |
+| `ACCESS_AUD`             | The Access application's AUD tag                                                     |
+| `QUICK_ACTION_ENGINE`    | `kitesurf` (cheaper) or `chromium` for quick page reads                              |
+| `EMAIL_DOMAIN`           | Turns on inbound email. Each bot gets `<user>.<bot>@<domain>`                        |
+| `BROWSER_RUN_ACCOUNT_ID` | With `BROWSER_RUN_API_TOKEN` (secret), turns on the crawl tool                       |
 | `PARALLEL_API_KEY`       | With `AI_GATEWAY_API_TOKEN`, enables the built-in web search tool (both are secrets) |
 | `AI_GATEWAY_API_TOKEN`   | Cloudflare token: "AI Gateway Read" enables spend; "AI Gateway Run" enables web search |
-| `VAPID_*`                | Push notification keys (`npx web-push generate-vapid-keys`)           |
+| `VAPID_*`                | Push notification keys (`npx web-push generate-vapid-keys`)                          |
 
 The Models page overrides `MODEL` and `BACKGROUND_MODEL` for your account,
 and each bot can pick its own chat model in its settings.
